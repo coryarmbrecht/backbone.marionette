@@ -83,6 +83,10 @@ describe('region', function() {
       expect(view.render).toHaveBeenCalled();
     });
 
+    it('should set $el and el', function() {
+      expect(myRegion.$el[0]).toEqual(myRegion.el);
+    });
+
     it('should append the rendered HTML to the managers "el"', function() {
       expect(myRegion.$el).toHaveHtml(view.el);
     });
@@ -463,7 +467,7 @@ describe('region', function() {
     });
 
     it('should manage the specified el', function() {
-      expect(region.el).toBe(el);
+      expect(region._el).toBe(el);
     });
   });
 
@@ -526,7 +530,7 @@ describe('region', function() {
     });
 
     it('should not replace the existing html', function() {
-      expect($(region.el).text()).toBe('bar');
+      expect($(region._el).text()).toBe('bar');
     });
   });
 

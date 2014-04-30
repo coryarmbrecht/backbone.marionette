@@ -8,9 +8,9 @@
 
 Marionette.Region = function(options) {
   this.options = options || {};
-  this.el = this.getOption('el');
+  this._el = this.getOption('el');
 
-  if (!this.el) {
+  if (!this._el) {
     throwError('An "el" must be specified for a region.', 'NoElError');
   }
 
@@ -151,11 +151,13 @@ _.extend(Marionette.Region.prototype, Backbone.Events, {
 
   ensureEl: function() {
     if (!this.$el || this.$el.length === 0) {
-      this.$el = this.getEl(this.el);
+      this.$el = this.getEl(this._el);
     }
 
-    if (this.$el.length === 0) {
-      throwError('An "el" ' + this.el + ' must exist in DOM');
+    if (this.$el.length !== 0) {
+      this.el = this.$el[0];
+    } else {
+      throwError('An "el" ' + this._el + ' must exist in DOM');
     }
   },
 
